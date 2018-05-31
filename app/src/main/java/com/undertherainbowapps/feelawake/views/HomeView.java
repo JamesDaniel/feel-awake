@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.undertherainbowapps.feelawake.R;
+import com.undertherainbowapps.feelawake.activities.HomeActivity;
 
 /**
  * Created by user on 30/05/18.
@@ -20,6 +21,7 @@ public class HomeView extends RelativeLayout {
 
     private Button pickTime;
     private Button pickDate;
+    private Button logoutBtn;
 
     public HomeView(Context context) {
         super(context);
@@ -34,6 +36,7 @@ public class HomeView extends RelativeLayout {
         super.onFinishInflate();
         this.pickTime = findViewById(R.id.pick_time);
         this.pickDate = findViewById(R.id.pick_date);
+        this.logoutBtn = findViewById(R.id.logoutBtn);
 
         pickTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,40 +52,36 @@ public class HomeView extends RelativeLayout {
             }
         });
 
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((HomeActivity) getContext()).signOut();
+            }
+        });
     }
 
     private void showTimePicker() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Activity activity = (Activity) this.getContext();
-        LayoutInflater inflater = activity.getLayoutInflater();
-
-        builder.setCancelable(false);
-        builder.setView(inflater.inflate(R.layout.time_picker, null))
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setNegativeButton("Cancel", null);
-        builder.create();
-        builder.show();
+        showDialog(R.layout.time_picker);
     }
 
     private void showDatePicker() {
+        showDialog(R.layout.date_picker);
+    }
+
+    private void showDialog(int layout) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         Activity activity = (Activity) this.getContext();
         LayoutInflater inflater = activity.getLayoutInflater();
 
         builder.setCancelable(false);
-        builder.setView(inflater.inflate(R.layout.date_picker, null))
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setView(inflater.inflate(layout, null))
+                .setPositiveButton(getContext().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setNegativeButton("Cancel", null);
+                .setNegativeButton(getContext().getString(R.string.cancel), null);
         builder.create();
         builder.show();
     }
