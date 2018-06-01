@@ -9,6 +9,10 @@
   <string name="registration_fail">Registration failed.</string>
   <string name="auth_fail">Authentication failed.</string>
   <string name="invalid_login_input">Invalid email or password.</string>
+  <string name="invalid_email">Invalid email.</string>
   <string name="ok">Ok</string>
   <string name="cancel">Cancel</string>
+  <string name="reset_password">Reset Password</string>
+  <string name="email_sent">Email sent.</string>
+  <string name="password_reset_fail">Password Reset Failed.</string>
 </resources>

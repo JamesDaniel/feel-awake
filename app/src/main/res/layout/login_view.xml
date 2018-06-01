@@ -32,5 +32,12 @@
     android:layout_below="@+id/loginBtn"
     android:text="@string/register"/>
 
+  <Button
+    android:id="@+id/resetPasswordBtn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/registerBtn"
+    android:text="@string/reset_password"/>
+
 
 </com.undertherainbowapps.feelawake.views.LoginView>

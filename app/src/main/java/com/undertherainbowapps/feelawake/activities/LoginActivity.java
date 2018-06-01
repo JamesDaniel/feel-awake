@@ -83,7 +83,13 @@ public class LoginActivity extends AppCompatActivity {
           @Override
           public void onComplete(@NonNull Task<Void> task) {
             if (task.isSuccessful()) {
-              Log.d(TAG, "Email sent.");
+              Log.d(TAG, getString(R.string.email_sent));
+              Toast.makeText(LoginActivity.this, getString(R.string.email_sent),
+                  Toast.LENGTH_SHORT).show();
+            } else {
+              Log.w(TAG, "createUserWithEmail:failure", task.getException());
+              Toast.makeText(LoginActivity.this, getString(R.string.password_reset_fail),
+                  Toast.LENGTH_SHORT).show();
             }
           }
         });
