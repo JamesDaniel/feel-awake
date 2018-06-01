@@ -19,70 +19,71 @@ import com.undertherainbowapps.feelawake.activities.HomeActivity;
 
 public class HomeView extends RelativeLayout {
 
-    private Button pickTime;
-    private Button pickDate;
-    private Button logoutBtn;
+  private Button pickTime;
+  private Button pickDate;
+  private Button logoutBtn;
 
-    public HomeView(Context context) {
-        super(context);
-    }
+  public HomeView(Context context) {
+    super(context);
+  }
 
-    public HomeView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public HomeView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        this.pickTime = findViewById(R.id.pick_time);
-        this.pickDate = findViewById(R.id.pick_date);
-        this.logoutBtn = findViewById(R.id.logoutBtn);
+  @Override
+  protected void onFinishInflate() {
+    super.onFinishInflate();
+    this.pickTime = findViewById(R.id.pick_time);
+    this.pickDate = findViewById(R.id.pick_date);
+    this.logoutBtn = findViewById(R.id.logoutBtn);
 
-        pickTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePicker();
-            }
-        });
+    pickTime.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        showTimePicker();
+      }
+    });
 
-        pickDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker();
-            }
-        });
+    pickDate.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        showDatePicker();
+      }
+    });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((HomeActivity) getContext()).signOut();
-            }
-        });
-    }
+    logoutBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        ((HomeActivity) getContext()).signOut();
+      }
+    });
+  }
 
-    private void showTimePicker() {
-        showDialog(R.layout.time_picker);
-    }
+  private void showTimePicker() {
+    showDialog(R.layout.time_picker);
+  }
 
-    private void showDatePicker() {
-        showDialog(R.layout.date_picker);
-    }
+  private void showDatePicker() {
+    showDialog(R.layout.date_picker);
+  }
 
-    private void showDialog(int layout) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Activity activity = (Activity) this.getContext();
-        LayoutInflater inflater = activity.getLayoutInflater();
+  private void showDialog(int layout) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    Activity activity = (Activity) this.getContext();
+    LayoutInflater inflater = activity.getLayoutInflater();
 
-        builder.setCancelable(false);
-        builder.setView(inflater.inflate(layout, null))
-                .setPositiveButton(getContext().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+    builder.setCancelable(false);
+    builder.setView(inflater.inflate(layout, null))
+        .setPositiveButton(getContext().getString(R.string.ok),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                })
-                .setNegativeButton(getContext().getString(R.string.cancel), null);
-        builder.create();
-        builder.show();
-    }
+              }
+            })
+        .setNegativeButton(getContext().getString(R.string.cancel), null);
+    builder.create();
+    builder.show();
+  }
 }

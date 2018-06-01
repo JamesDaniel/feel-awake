@@ -17,58 +17,60 @@ import com.undertherainbowapps.feelawake.activities.LoginActivity;
 
 public class LoginView extends RelativeLayout {
 
-    private TextView emailTv;
-    private TextView passwordTv;
-    private Button loginBtn;
-    private Button registerBtn;
+  private TextView emailTv;
+  private TextView passwordTv;
+  private Button loginBtn;
+  private Button registerBtn;
 
-    public LoginView(Context context) {
-        super(context);
-    }
+  public LoginView(Context context) {
+    super(context);
+  }
 
-    public LoginView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public LoginView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public String getEmailInput() {
-        return emailTv.getText().toString();
-    }
+  public String getEmailInput() {
+    return emailTv.getText().toString();
+  }
 
-    public String getPasswordInput() {
-        return passwordTv.getText().toString();
-    }
+  public String getPasswordInput() {
+    return passwordTv.getText().toString();
+  }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        this.emailTv = findViewById(R.id.emailTv);
-        this.passwordTv = findViewById(R.id.passwordTv);
-        this.loginBtn = findViewById(R.id.loginBtn);
-        this.registerBtn = findViewById(R.id.registerBtn);
+  @Override
+  protected void onFinishInflate() {
+    super.onFinishInflate();
+    this.emailTv = findViewById(R.id.emailTv);
+    this.passwordTv = findViewById(R.id.passwordTv);
+    this.loginBtn = findViewById(R.id.loginBtn);
+    this.registerBtn = findViewById(R.id.registerBtn);
 
-        loginBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateInput())
-                    ((LoginActivity) getContext()).login();
-            }
-        });
-        registerBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateInput())
-                    ((LoginActivity) getContext()).register();
-            }
-        });
-    }
-
-    private boolean validateInput() {
-        if (emailTv.getText().toString().isEmpty() ||
-                passwordTv.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), getContext().getString(R.string.invalid_login_input),
-                    Toast.LENGTH_SHORT).show();
-            return false;
+    loginBtn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (validateInput()) {
+          ((LoginActivity) getContext()).login();
         }
-        return true;
+      }
+    });
+    registerBtn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (validateInput()) {
+          ((LoginActivity) getContext()).register();
+        }
+      }
+    });
+  }
+
+  private boolean validateInput() {
+    if (emailTv.getText().toString().isEmpty() ||
+        passwordTv.getText().toString().isEmpty()) {
+      Toast.makeText(getContext(), getContext().getString(R.string.invalid_login_input),
+          Toast.LENGTH_SHORT).show();
+      return false;
     }
+    return true;
+  }
 }
