@@ -2,6 +2,10 @@ package com.undertherainbowapps.feelawake.application;
 
 import android.app.Application;
 import android.content.res.Configuration;
+import com.bugfender.sdk.Bugfender;
+import com.crashlytics.android.Crashlytics;
+import com.undertherainbowapps.feelawake.BuildConfig;
+import io.fabric.sdk.android.Fabric;
 
 public class FeelAwakeApplication extends Application {
 
@@ -9,6 +13,12 @@ public class FeelAwakeApplication extends Application {
   public void onCreate() {
     super.onCreate();
     registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacksImpl());
+
+    Bugfender.init(this, BuildConfig.BugfenderApiKey, BuildConfig.DEBUG);
+    Bugfender.enableLogcatLogging();
+    Bugfender.enableUIEventLogging(this);
+
+    Fabric.with(this, new Crashlytics());
   }
 
   @Override
