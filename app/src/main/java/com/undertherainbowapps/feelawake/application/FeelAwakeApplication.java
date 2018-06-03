@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.res.Configuration;
 import com.bugfender.sdk.Bugfender;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.undertherainbowapps.feelawake.BuildConfig;
+import com.undertherainbowapps.feelawake.R;
 import io.fabric.sdk.android.Fabric;
 
 public class FeelAwakeApplication extends Application {
@@ -19,6 +22,10 @@ public class FeelAwakeApplication extends Application {
     Bugfender.enableUIEventLogging(this);
 
     Fabric.with(this, new Crashlytics());
+
+    FacebookSdk.setApplicationId(BuildConfig.FacebookAppId);
+    FacebookSdk.sdkInitialize(getApplicationContext());
+    AppEventsLogger.activateApp(this);
   }
 
   @Override

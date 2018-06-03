@@ -8,7 +8,7 @@
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
-    android:name="com.undertherainbowapps.feelawake.application.FeelAwakeApplication"
+    android:name=".application.FeelAwakeApplication"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
@@ -25,6 +25,25 @@
     <meta-data
       android:name="io.fabric.ApiKey"
       android:value="${crashlyticsApiKey}"/>
+
+    <activity
+      android:configChanges=
+        "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+      android:label="@string/app_name"
+      android:name="com.facebook.FacebookActivity"/>
+    <activity
+      android:exported="true"
+      android:name="com.facebook.CustomTabActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="fb859063257633738"/>
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
