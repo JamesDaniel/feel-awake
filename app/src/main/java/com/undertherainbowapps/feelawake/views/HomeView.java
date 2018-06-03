@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.undertherainbowapps.feelawake.R;
@@ -22,6 +25,7 @@ public class HomeView extends RelativeLayout {
   private Button pickTime;
   private Button pickDate;
   private Button logoutBtn;
+  private EditText percentageInputTv;
 
   public HomeView(Context context) {
     super(context);
@@ -37,6 +41,7 @@ public class HomeView extends RelativeLayout {
     this.pickTime = findViewById(R.id.pick_time);
     this.pickDate = findViewById(R.id.pick_date);
     this.logoutBtn = findViewById(R.id.logoutBtn);
+    this.percentageInputTv = findViewById(R.id.percentageInputTv);
 
     pickTime.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -56,6 +61,34 @@ public class HomeView extends RelativeLayout {
       @Override
       public void onClick(View view) {
         ((HomeActivity) getContext()).signOut();
+      }
+    });
+
+    percentageInputTv.addTextChangedListener(new TextWatcher() {
+      String strEnteredValPrev;
+      String strEnteredValNew;
+
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        strEnteredValPrev = percentageInputTv.getText().toString();
+      }
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        strEnteredValNew = percentageInputTv.getText().toString();
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+        if (!strEnteredValNew.equals("")) {
+          int num = Integer.parseInt(strEnteredValNew);
+          if (num > 100) {
+            percentageInputTv.setText(strEnteredValPrev);
+            percentageInputTv.setSelection(percentageInputTv.getText().length());
+          } else if (num == 0) {
+            percentageInputTv.setText("");
+          }
+        }
       }
     });
   }

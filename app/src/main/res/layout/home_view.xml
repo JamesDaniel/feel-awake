@@ -17,11 +17,19 @@
     android:layout_below="@id/pick_time"
     android:text="Pick Date"/>
 
+  <EditText
+    android:id="@+id/percentageInputTv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/pick_date"
+    android:inputType="number"
+    android:maxLength="3"/>
+
   <Button
     android:id="@+id/logoutBtn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/pick_date"
+    android:layout_below="@id/percentageInputTv"
     android:text="Logout"/>
 
 </com.undertherainbowapps.feelawake.views.HomeView>
