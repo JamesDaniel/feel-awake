@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
           @Override
           public void onSuccess(LoginResult loginResult) {
             Log.d(TAG, "onSuccess");
+            loginButton.setEnabled(false);
+            // todo show in progress dialog
             handleFacebookAccessToken(loginResult.getAccessToken());
           }
 
@@ -156,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete(@NonNull Task<AuthResult> task) {
+            loginButton.setEnabled(true);
+            // todo hide in progress dialog
             if (task.isSuccessful()) {
               Log.d(TAG, "signInWithCredential:success");
               startHomeActivity();
