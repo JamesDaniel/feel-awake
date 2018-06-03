@@ -1,7 +1,5 @@
 package com.undertherainbowapps.feelawake.activities;
 
-import static android.provider.ContactsContract.Intents.Insert.EMAIL;
-
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +13,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -25,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.undertherainbowapps.feelawake.R;
 import com.undertherainbowapps.feelawake.views.LoginView;
-import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
   private LoginView loginView;
 
   private CallbackManager callbackManager;
-  private LoginButton loginButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +43,13 @@ public class LoginActivity extends AppCompatActivity {
 
   public void initFacebookLogin() {
     callbackManager = CallbackManager.Factory.create();
-    loginButton = findViewById(R.id.login_button);
-    loginButton.setReadPermissions(Arrays.asList(EMAIL, "public_profile"));
-    callbackManager = CallbackManager.Factory.create();
 
     LoginManager.getInstance().registerCallback(callbackManager,
         new FacebookCallback<LoginResult>() {
           @Override
           public void onSuccess(LoginResult loginResult) {
             Log.d(TAG, "onSuccess");
-            loginButton.setEnabled(false);
+            loginView.enableButtons(false);
             // todo show in progress dialog
             handleFacebookAccessToken(loginResult.getAccessToken());
           }
@@ -87,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-  public void login() {
+  public void firebaseLogin() {
     mAuth.signInWithEmailAndPassword(loginView.getEmailInput(), loginView.getPasswordInput())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
@@ -104,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         });
   }
 
-  public void register() {
+  public void firebaseRegister() {
     mAuth.createUserWithEmailAndPassword(loginView.getEmailInput(), loginView.getPasswordInput())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
@@ -121,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         });
   }
 
-  public void resetPassword() {
+  public void firebaseResetPassword() {
     FirebaseAuth.getInstance().sendPasswordResetEmail(loginView.getEmailInput())
         .addOnCompleteListener(new OnCompleteListener<Void>() {
           @Override
@@ -158,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete(@NonNull Task<AuthResult> task) {
-            loginButton.setEnabled(true);
+            loginView.enableButtons(true);
             // todo hide in progress dialog
             if (task.isSuccessful()) {
               Log.d(TAG, "signInWithCredential:success");

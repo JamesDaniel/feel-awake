@@ -1,5 +1,7 @@
 package com.undertherainbowapps.feelawake.views;
 
+import static android.provider.ContactsContract.Intents.Insert.EMAIL;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -10,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
 import com.undertherainbowapps.feelawake.R;
 import com.undertherainbowapps.feelawake.activities.LoginActivity;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +36,7 @@ public class LoginView extends RelativeLayout {
   private Button loginBtn;
   private Button registerBtn;
   private Button resetPasswordBtn;
+  private LoginButton loginButton;
 
   public LoginView(Context context) {
     super(context);
@@ -58,13 +63,15 @@ public class LoginView extends RelativeLayout {
     this.loginBtn = findViewById(R.id.loginBtn);
     this.registerBtn = findViewById(R.id.registerBtn);
     this.resetPasswordBtn = findViewById(R.id.resetPasswordBtn);
+    this.loginButton = findViewById(R.id.login_button);
+    this.loginButton.setReadPermissions(Arrays.asList(EMAIL, "public_profile"));
 
     loginBtn.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
         if (isValidEmail(emailTv.getText()) && isValidPassword(
             passwordTv.getText().toString())) {
-          ((LoginActivity) getContext()).login();
+          ((LoginActivity) getContext()).firebaseLogin();
         } else {
           validationToast(R.string.invalid_login_input);
         }
@@ -75,7 +82,7 @@ public class LoginView extends RelativeLayout {
       public void onClick(View view) {
         if (isValidEmail(emailTv.getText()) && isValidPassword(
             passwordTv.getText().toString())) {
-          ((LoginActivity) getContext()).register();
+          ((LoginActivity) getContext()).firebaseRegister();
         } else {
           validationToast(R.string.invalid_login_input);
         }
@@ -85,7 +92,7 @@ public class LoginView extends RelativeLayout {
       @Override
       public void onClick(View view) {
         if (isValidEmail(emailTv.getText())) {
-          ((LoginActivity) getContext()).resetPassword();
+          ((LoginActivity) getContext()).firebaseResetPassword();
         } else {
           validationToast(R.string.invalid_email);
         }
@@ -98,6 +105,13 @@ public class LoginView extends RelativeLayout {
       return true;
     }
     return false;
+  }
+
+  public void enableButtons(boolean enabled) {
+    loginBtn.setEnabled(enabled);
+    registerBtn.setEnabled(enabled);
+    resetPasswordBtn.setEnabled(enabled);
+    loginButton.setEnabled(enabled);
   }
 
   public boolean isValidPassword(final String password) {
