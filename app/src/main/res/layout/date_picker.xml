@@ -7,7 +7,6 @@
   <DatePicker
     android:id="@+id/date_picker"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/time_picker"></DatePicker>
+    android:layout_height="wrap_content"></DatePicker>
 
 </android.support.constraint.ConstraintLayout>

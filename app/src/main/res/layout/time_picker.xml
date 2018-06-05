@@ -7,7 +7,6 @@
   <TimePicker
     android:id="@+id/time_picker"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/title"></TimePicker>
+    android:layout_height="wrap_content"></TimePicker>
 
 </android.support.constraint.ConstraintLayout>
